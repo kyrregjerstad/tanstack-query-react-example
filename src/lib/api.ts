@@ -2,8 +2,13 @@ import { PostTodo, Todo } from './types';
 
 const BASE_URL = 'https://simple-todo-api.kyrregjerstad.workers.dev';
 
-export const getTodos = async (userId: number): Promise<Todo[]> => {
-  const res = await fetch(`${BASE_URL}/users/${userId}/todos`);
+export const getTodos = async (
+  userId: number,
+  isCompleted?: boolean | undefined,
+): Promise<Todo[]> => {
+  const res = await fetch(
+    `${BASE_URL}/users/${userId}/todos?completed=${isCompleted}`,
+  );
   const data = await res.json();
 
   return data;
@@ -37,4 +42,12 @@ export const deleteTodo = async (todoId: number) => {
   }
 
   return true;
+};
+
+export const updateTodo = async (todoId: number, todo: PostTodo) => {
+  const response = await fetch(`${BASE_URL}/todos/${todoId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(todo),
+  });
+  return await response.json();
 };
