@@ -115,10 +115,10 @@ export const TodoInput = () => {
           setValue(''); // Resetting the input field
         }}
         disabled={isPending || !value} // Disabling the button while mutation is pending or input is empty
-        className="rounded-lg bg-stone-600 px-4 text-white hover:bg-stone-700"
+        className="rounded-lg bg-stone-600 px-4 hover:bg-stone-700"
       >
-        {isPending ? 'Adding...' : 'Add todo'} // Changing button text based on
-        mutation state
+        {isPending ? 'Adding...' : 'Add todo'}
+        {/* Changing button text based on mutation state */}
       </button>
     </div>
   );
