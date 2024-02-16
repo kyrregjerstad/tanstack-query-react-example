@@ -15,16 +15,19 @@ import { useState } from 'react';
 const randomUserId = Math.floor(Math.random() * 999) + 1;
 
 export const Todos = () => {
+  // Destructuring the response from `useQuery` to obtain data, loading state, and error
   const { data, isLoading, error } = useQuery({
-    queryKey: ['todos'],
-    queryFn: () => getTodos(randomUserId),
+    queryKey: ['todos'], // Unique key for the query cache
+    queryFn: () => getTodos(randomUserId), // Function to fetch todos
   });
 
+  // Utilizing `useMutationState` to track the state of addTodo mutations
   const variables = useMutationState<string>({
-    filters: { mutationKey: ['addTodo'], status: 'pending' },
-    select: (mutation) => mutation.state.variables as string,
+    filters: { mutationKey: ['addTodo'], status: 'pending' }, // Filter for pending addTodo mutations
+    select: (mutation) => mutation.state.variables as string, // Selecting the mutation variables (todo names)
   });
 
+  // Render a loading state while the todos are being fetched
   if (isLoading) {
     return (
       <ul className="flex w-full flex-col gap-4">
@@ -33,10 +36,12 @@ export const Todos = () => {
     );
   }
 
+  // Displaying an error message if the fetch operation fails
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
+  // Rendering the list of todos along with pending todos from mutations
   return (
     <div className="w-full">
       <ul className="flex w-full flex-col gap-4">
@@ -54,15 +59,17 @@ export const Todos = () => {
 };
 
 const Todo = ({ name, id }: { name: string; id: number }) => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(); // Accessing the query client for cache manipulation
 
+  // useMutation hook to handle todo deletion, with cache invalidation on mutation settlement
   const { mutate } = useMutation({
-    mutationFn: deleteTodo,
+    mutationFn: deleteTodo, // Function to delete a todo
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+      queryClient.invalidateQueries({ queryKey: ['todos'] }); // Invalidate todos query to trigger refetch
     },
   });
 
+  // Rendering the todo item with a delete button
   return (
     <li className="flex w-full items-center justify-between gap-2 rounded-lg border border-stone-500 bg-stone-900 p-4">
       {name}
@@ -77,24 +84,26 @@ const Todo = ({ name, id }: { name: string; id: number }) => {
 };
 
 export const TodoInput = () => {
-  const [value, setValue] = useState('');
-  const queryClient = useQueryClient();
+  const [value, setValue] = useState(''); // State to hold the input value
+  const queryClient = useQueryClient(); // Accessing the query client for cache manipulation
 
+  // `useMutation` hook for adding a new todo, with cache invalidation on mutation settlement
   const { mutate, isPending } = useMutation({
-    mutationFn: (name: string) => postTodo(randomUserId, { name }),
-    onSettled: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
-    mutationKey: ['addTodo'],
+    mutationFn: (name: string) => postTodo(randomUserId, { name }), // Function to post a new todo
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['todos'] }), // Invalidate todos query to trigger refetch
+    mutationKey: ['addTodo'], // Key for this mutation
   });
 
+  // Rendering the input field with an add button
   return (
     <div className="flex w-full gap-2 rounded-md border border-stone-500 bg-stone-900 p-4">
       <input
         value={value}
-        onChange={({ target }) => setValue(target.value)}
+        onChange={({ target }) => setValue(target.value)} // Updating the state with input value
         onKeyDown={({ key }) => {
           if (key === 'Enter') {
-            mutate(value);
-            setValue('');
+            mutate(value); // Triggering the add mutation on Enter key
+            setValue(''); // Resetting the input field
           }
         }}
         placeholder="Todo name"
@@ -102,13 +111,14 @@ export const TodoInput = () => {
       />
       <button
         onClick={() => {
-          mutate(value);
-          setValue('');
+          mutate(value); // Triggering the add mutation on button click
+          setValue(''); // Resetting the input field
         }}
-        disabled={isPending || !value}
+        disabled={isPending || !value} // Disabling the button while mutation is pending or input is empty
         className="rounded-lg bg-stone-600 px-4 text-white hover:bg-stone-700"
       >
-        {isPending ? 'Adding...' : 'Add todo'}
+        {isPending ? 'Adding...' : 'Add todo'} // Changing button text based on
+        mutation state
       </button>
     </div>
   );
