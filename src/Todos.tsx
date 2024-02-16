@@ -139,7 +139,7 @@ export const TodoInput = () => {
   });
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-md border border-stone-500 bg-stone-900 p-4 sm:flex-row">
+    <div className="flex w-full flex-col gap-4 rounded-md border border-stone-500 bg-stone-900 p-4 sm:flex-row sm:gap-2">
       <input
         value={value}
         onChange={({ target }) => setValue(target.value)}
