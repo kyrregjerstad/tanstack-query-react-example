@@ -14,8 +14,7 @@ import { cn } from './lib/utils';
 // if you want to use a specific user id, you can replace this with a constant
 // e.g const randomUserId = 500;
 // all todos are stored in the a database, but deleted after 24 hours
-// const randomUserId = Math.floor(Math.random() * 999) + 1;
-const randomUserId = 1;
+const randomUserId = Math.floor(Math.random() * 999) + 1;
 
 export const Todos = () => {
   // Destructuring the response from `useQuery` to obtain data, loading state, and error
