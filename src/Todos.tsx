@@ -5,8 +5,9 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-import { deleteTodo, getTodos, postTodo } from './lib/api';
+import { completeTodo, deleteTodo, getTodos, postTodo } from './lib/api';
 import { useState } from 'react';
+import { cn } from './lib/utils';
 
 // gets a random user id between 1 and 999
 // if you want to use a specific user id, you can replace this with a constant
@@ -62,23 +63,44 @@ const Todo = ({ name, id }: { name: string; id: number }) => {
   const queryClient = useQueryClient(); // Accessing the query client for cache manipulation
 
   // useMutation hook to handle todo deletion, with cache invalidation on mutation settlement
-  const { mutate } = useMutation({
+  const { mutate: deleteMutation, isPending: isDeletePending } = useMutation({
     mutationFn: deleteTodo, // Function to delete a todo
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['todos'] }); // Invalidate todos query to trigger refetch
-    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['todos'] }), // Invalidate todos query to trigger refetch
+    mutationKey: ['deleteTodo'], // Key for this mutation
   });
+
+  const { mutate: completeMutation, isPending: isCompletePending } =
+    useMutation({
+      mutationFn: completeTodo,
+      onSettled: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
+      mutationKey: ['completeTodo'],
+    });
 
   // Rendering the todo item with a delete button
   return (
-    <li className="flex w-full items-center justify-between gap-2 rounded-lg border border-stone-500 bg-stone-900 p-4">
+    <li
+      className={cn(
+        'flex w-full items-center justify-between gap-2 rounded-lg border border-stone-500 bg-stone-900 p-4',
+        isDeletePending || isCompletePending ? 'opacity-50' : '', // Adding opacity to the todo item if a mutation is pending
+      )}
+    >
       {name}
-      <button
-        onClick={() => mutate(id)}
-        className="h-8 w-8 rounded-lg bg-stone-600 px-2 hover:bg-red-500"
-      >
-        X
-      </button>
+      <div className="flex gap-2">
+        <button
+          onClick={() => completeMutation(id)}
+          className="h-8 w-8 rounded-lg bg-stone-600 px-2 hover:bg-stone-700 disabled:bg-stone-500"
+          disabled={isDeletePending || isCompletePending}
+        >
+          V
+        </button>
+        <button
+          onClick={() => deleteMutation(id)}
+          className="h-8 w-8 rounded-lg bg-stone-600 px-2 hover:bg-red-500 disabled:bg-stone-500"
+          disabled={isDeletePending || isCompletePending}
+        >
+          X
+        </button>
+      </div>
     </li>
   );
 };
@@ -115,7 +137,7 @@ export const TodoInput = () => {
           setValue(''); // Resetting the input field
         }}
         disabled={isPending || !value} // Disabling the button while mutation is pending or input is empty
-        className="rounded-lg bg-stone-600 px-4 hover:bg-stone-700"
+        className="rounded-lg bg-stone-600 px-4 hover:bg-stone-700 disabled:bg-stone-500"
       >
         {isPending ? 'Adding...' : 'Add todo'}
         {/* Changing button text based on mutation state */}

@@ -17,6 +17,17 @@ export const postTodo = async (userId: number, todo: PostTodo) => {
   return await response.json();
 };
 
+export const completeTodo = async (todoId: number) => {
+  const response = await fetch(`${BASE_URL}/todos/${todoId}/complete`, {
+    method: 'PATCH',
+  });
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+
+  return true;
+};
+
 export const deleteTodo = async (todoId: number) => {
   const response = await fetch(`${BASE_URL}/todos/${todoId}`, {
     method: 'DELETE',

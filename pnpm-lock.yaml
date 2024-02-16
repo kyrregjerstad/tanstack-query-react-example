@@ -8,12 +8,21 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.20.2
     version: 5.20.5(react@18.2.0)
+  '@tanstack/react-query-devtools':
+    specifier: ^5.21.0
+    version: 5.21.0(@tanstack/react-query@5.20.5)(react@18.2.0)
+  clsx:
+    specifier: ^2.1.0
+    version: 2.1.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  tailwind-merge:
+    specifier: ^2.2.1
+    version: 2.2.1
 
 devDependencies:
   '@tanstack/eslint-plugin-query':
@@ -264,6 +273,13 @@ packages:
       '@babel/core': 7.23.9
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
+
+  /@babel/runtime@7.23.9:
+    resolution: {integrity: sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@babel/template@7.23.9:
     resolution: {integrity: sha512-+xrD2BWLpvHKNmX2QbpdpsBaWnRxahMwJjO+KZk2JOElj5nSmKezyS1B4u+QbHMTX69t4ukm6hh9lsYQ7GHCKA==}
@@ -755,6 +771,21 @@ packages:
     resolution: {integrity: sha512-T1W28gGgWn0A++tH3lxj3ZuUVZZorsiKcv+R50RwmPYz62YoDEkG4/aXHZELGkRp4DfrW07dyq2K5dvJ4Wl1aA==}
     dev: false
 
+  /@tanstack/query-devtools@5.21.0:
+    resolution: {integrity: sha512-hbfuh9xredeehLhlJY38sey7Ezlr3KduDHRkrnvbwuTQCgkvixFdcJGMpUx0khh74q3Ay8QGa2uO+fV/kSNlww==}
+    dev: false
+
+  /@tanstack/react-query-devtools@5.21.0(@tanstack/react-query@5.20.5)(react@18.2.0):
+    resolution: {integrity: sha512-79Rq5gtf9iuOANtrAIvSukC2ZT5d8iPXrJtCnkpJWKM2i+pIl6aBJR56sLJiFOvtlrJ1Cy8dkWZzWSi1s4tBbg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.20.5
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-devtools': 5.21.0
+      '@tanstack/react-query': 5.20.5(react@18.2.0)
+      react: 18.2.0
+    dev: false
+
   /@tanstack/react-query@5.20.5(react@18.2.0):
     resolution: {integrity: sha512-6MHwJ8G9cnOC/XKrwt56QMc91vN7hLlAQNUA0ubP7h9Jj3a/CmkUwT6ALdFbnVP+PsYdhW3WONa8WQ4VcTaSLQ==}
     peerDependencies:
@@ -1157,6 +1188,11 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /clsx@2.1.0:
+    resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -2129,6 +2165,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /regenerator-runtime@0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
+    dev: false
+
   /resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -2299,6 +2339,12 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /tailwind-merge@2.2.1:
+    resolution: {integrity: sha512-o+2GTLkthfa5YUt4JxPfzMIpQzZ3adD1vLVkvKE1Twl9UAhGsEbIZhHHZVRttyW177S8PDJI3bTQNaebyofK3Q==}
+    dependencies:
+      '@babel/runtime': 7.23.9
+    dev: false
 
   /tailwindcss@3.4.1:
     resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}
