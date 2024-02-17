@@ -1,6 +1,6 @@
 import { PostTodo, Todo } from './types';
 
-const BASE_URL = 'https://simple-todo-api.kyrregjerstad.workers.dev';
+const BASE_URL = 'https://todo.api.kyrre.dev';
 
 export const getTodos = async (
   userId: number,

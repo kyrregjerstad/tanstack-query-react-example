@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# Tanstack Query React Example
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple example of how to use [Tanstack Query](https://react-query.tanstack.com/) in a React application. It demonstrates fetching, adding, updating, and deleting todos from an API.
 
-Currently, two official plugins are available:
+The API repo can be found here: https://github.com/kyrregjerstad/simple-todo-api
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
+1. Clone the repository.
+2. Install dependencies with `pnpm install`.
+3. Start the development server with `pnpm dev`.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+or edit directly on StackBlitz!
+https://stackblitz.com/~/github.com/kyrregjerstad/tanstack-query-react-example
 
-- Configure the top-level `parserOptions` property like this:
+## Contributing
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Contributions are welcome. Please open an issue or submit a pull request.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## License
+
+This project is licensed under the MIT License.
